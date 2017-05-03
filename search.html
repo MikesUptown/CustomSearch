@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<!--
+A word like “internationalization” can be abbreviated in the form i18n.
+Let’s say these abbreviations are only useful if they’re unique.
+Given a target word and an dictionary (as an array) of the words in a given
+language, determine whether the target word’s abbreviation is unique in that
+dictionary.
+-->
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+  img {
+    padding: 5px;
+  }
+  #outer {
+    width: 100%; height: 100%;
+  }
+  .overlay {
+    background-color: #000;
+    opacity: .7;
+    filter: alpha(opacity=70);
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 10;
+  }
+  .overlayimg {
+    position: absolute;
+    z-index: 11;
+    left: 50px;
+    top: 50px;
+  }
+  </style>
+
+  <script>
+
+
+	// retrieves abbreviation and sets value to lower case
+  // sets inner HTML of the output1 <p> tag to abbreviation associated with the search term
+  // terms.get(search_term) retrieves the array/list []
+  // terms.get(search_term)[0] retrieves the first element in that array (abbreviation)
+  var search_term = "";
+
+	function abbreviation() {
+		search_term = document.getElementById("mySearch").value.toLowerCase();
+    if(search_term == ""){
+      return;
+    }
+    document.getElementById("output1").innerHTML = terms.get(search_term)[0];
+  }
+
+  // sets inner HTML of the output2 <p> tag to definition associated with the search term
+  // terms.get(search_term)[1] retrieves second element in array (definition)
+	function definition() {
+    search_term = document.getElementById("mySearch").value.toLowerCase();
+    if(search_term == ""){
+      return;
+    }
+    document.getElementById("output2").innerHTML = terms.get(search_term)[1];
+  }
+
+  // used regex to gather the first letter of every word to create an acronym
+  // acronym set to lower case and compared to the original map to see if it exists in that context
+  function duplicates() {
+    var count = 0;
+    var outputString = "";
+
+
+    search_term = document.getElementById("mySearch").value.toLowerCase();
+    if (search_term == "") {
+			return;
+    }
+
+    var matches = search_term.match(/\b(\w)/g);
+    var search = search_term.replace('or', '');
+    var acronym = matches.join('').toUpperCase();
+
+    count = 0;
+
+    terms.forEach(function (value, key, map) {
+      if (acronym == value[0]) {
+        count += 1;
+        outputString += value[0] + ": " + value[2] + ", ";
+			}
+
+		});
+
+    outputString = outputString.substring(0, outputString.length-2);
+
+    /* ifReturn does not == duplicate; return response in alert box */
+    if(count == 1){
+      document.getElementById("output4").innerHTML = alert("Your search yielded the following result:\n" + outputString + "\nis a unique abbreviation within this dictionary.");
+			document.getElementById("output3").innerHTML = outputString;
+    }
+    else {
+      document.getElementById("output3").innerHTML = outputString;
+    }
+  }
+
+  // the KEY of the map is the term searched for
+	// the VALUE of the map is the associated response of the key
+  // as a workaround i've repeated the key in the array to compare duplicates
+	var terms = new Map();
+	terms.set("call to action", ["CTA", "'Marketing term for next step a marketer wants a customer to take.'", "call to action"]);
+	terms.set("initial coin offering", ["ICO", "'An unregulated means by which funds are raised for a new cryptocurrency venture.'", "initial coin offering"]);
+	terms.set("earnings per share", ["EPS", "'The portion of company's profit allocated to each outstanding share.'", "earnings per share"]);
+	terms.set("commodity trading advisor", ["CTA", "'Individual or firm who provides individualized advice regarding buying and selling.'", "commodity trading advisor"]);
+	terms.set("immediate cancel order", ["ICO", "'Order to buy or sell a security that must be executed immediately.'", "immediate cancel order"]);
+  terms.set("artificial intelligence", ["AI", "'Refers to simulated intelligence in machines.\n These machines are programmed to think like a human and mimic the way a person acts.'", "artificial intelligence"]);
+  terms.set("net present value", ["NPV", "'The difference between the present value of cash inflows and the present value of cash outflows.'", "net present value"]);
+  terms.set("against all risks", ["AAR", "'An insurance policy that provides coverage against all types of loss or damage rather than specific ones.'", "against all risks"]);
+  terms.set("average annual return", ["AAR", "'A percentage used when reporting the historical return, such as the three-, five- and 10-year average returns of a mutual fund.'", "average annual return"]);
+  terms.set("average accounting return", ["AAR", "'An accounting method used for the purposes of comparison with other capital budgeting calculations, such as NPV, PB period and IRR.'", "average accounting return"]);
+  terms.set("real estate investment trust", ["REIT", "'A type of security that invests in real estate through property or mortgages and often trades on major exchanges like a stock.'", "real estate investment trust"]);
+  terms.set("real estate mutual fund", ["REIT", "'A mutual fund providing exposure to REITs.'", "real estate mutual fund"]);
+
+</script>
+
+</head>
+
+<body>
+  <!-- this sets the thumbnail and image for the overlay -->
+  <!-- double check if this goes in the body of the page? -->
+
+
+  <div id="left"></div>
+  <div id="right"></div>
+  <div id="top"></div>
+  <div id="bottom"></div>
+
+  <div class="top-content" style="center">
+    <h3 id="main-title"> Sample Financial Dictionary </h3>
+        <h1>Enter your search term.</h1>
+        <h1>Get its Abbreviation and Definition.</h1>
+        <h1>Find Duplicates.</h1>
+      <h3> entries taken from Investopedia </h3>
+  </div>
+
+  <p>
+    <!--Styling to input and buttons to center the search box for user experience-->
+    <input type="search" class="st-default-search-input" style="display: block; margin-left: auto; margin-right: auto; height:50px; width:200px; text-align: center;" id="mySearch" placeholder="Enter a Financial Search Term" />
+  </p>
+
+  <p>
+    <!--onclick JavaScript function including 'Abbreviation' button, 'Definition' button, and 'Duplicates' button.-->
+    <button style="margin-top: 10px; display: inline-block;" onclick="abbreviation()">Abbreviation</button>
+    <button style="display: inline-block;" onclick="definition()">Definition</button>
+    <button style="display: inline-block;" onclick="duplicates()">Duplicates</button>
+  </p>
+
+  <p>
+    <!--Container for response to display 'Abbreviation', 'Definition' and 'Duplicates' from JavaScript functions-->
+    <div class="response-container">
+      <div style="margin-left: auto; margin-right: auto; width: 325px; height: 300px; text-align: center; border: 3px solid #9AE4E7; background-color: #45607D;">
+      	<p id="output1"></p>
+      	<p id="output2"></p>
+        <p id="output3"></p>
+          <!-- <p style="display: block; margin-left: auto; margin-right: auto; margin-top: 5px;" id="output4"> </p> -->
+      </div>
+    </div>
+  </p>
+
+
+</body>
+
+</html>

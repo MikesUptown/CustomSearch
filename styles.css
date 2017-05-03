@@ -1,0 +1,96 @@
+html,
+body {
+  height: 100%;
+}
+body {
+    min-height: 100%;
+    background-color: #538EA8;
+}
+p {
+    font-size: 22px;
+    font-family: verdana;
+    font-weight: bolder;
+    text-align: center;
+    color: #CDC7B0;
+}
+h1 {
+  font-family: verdana;
+  color: #4B2F14;
+  text-align: center;
+  font-size: 24px;
+}
+h2 {
+  font-family: verdana;
+  color: #CDC7B0;
+  text-align: center;
+}
+h3 {
+  font-family: verdana;
+  color: #CDC7B0;
+  text-align: center;
+  font-size: 18px;
+}
+#output1 {
+    font-family: verdana;
+    font-size: 22px;
+    font-weight: bolder;
+    text-align: center;
+    color: #C76823;
+}
+#output2 {
+    font-family: verdana;
+    font-size: 18px;
+    font-weight: bolder;
+    text-align: center;
+    color: #CDC7B0;
+  }
+#output3 {
+    font-family: verdana;
+    font-size: 18px;
+    font-weight: bolder;
+    text-align: center;
+    color: #BD8A99;
+}
+#output4 {
+    font-family: verdana;
+    font-size: 0px;
+    font-weight: bolder;
+    text-align: center;
+    color: #C5E3AF;
+}
+#get-response{
+  width: 350px;
+  height: 300px;
+  border-color: #5F4F66;
+  border: 1px;
+}
+/* css to handle border box */
+#top, #bottom, #left, #right {
+	background: #CDC7B0;
+	position: fixed;
+	}
+	#left, #right {
+		top: 0; bottom: 0;
+		width: 10px;
+		}
+		#left { left: 0; }
+		#right { right: 0; }
+	#top, #bottom {
+		left: 0; right: 0;
+		height: 10px;
+		}
+		#top { top: 0; }
+		#bottom { bottom: 0;
+
+    /* body border for mobile */
+    @media
+
+    /* Fairly small screens including iphones */
+    only screen and (max-width: 500px),
+
+    /* iPads */
+    only screen and (min-device-width: 768px) and (max-device-width: 1024px)
+
+    {
+    	#top, #bottom, #left, #right { display: none; }
+    }
